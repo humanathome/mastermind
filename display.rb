@@ -33,10 +33,4 @@ module Display
   def display_code(code)
     puts "The code was: #{code.join(' - ')}"
   end
-
-  def play_again?
-    puts 'Would you like to play again? (y/n)'
-    answer = gets.chomp
-    answer.downcase == 'y'
-  end
 end

@@ -3,28 +3,20 @@
 require_relative 'player'
 require_relative 'computer'
 require_relative 'display'
+require_relative 'input'
 
 # main game class
 class Game
   attr_accessor :white_pegs, :black_pegs
 
   include Display
+  include Input
 
   PEG_COLORS = %w[red green blue yellow orange purple].freeze
 
   def initialize
     @player = HumanPlayer.new
     @computer = ComputerPlayer.new
-  end
-
-  def prompt_for_role
-    puts 'Would you like to play as a: 1. Code-maker or 2. Code-breaker? Enter 1 or 2:'
-    role = gets.chomp.to_i
-    until [1, 2].include?(role)
-      puts 'Please enter 1 or 2.'
-      role = gets.chomp.to_i
-    end
-    role
   end
 
   def set_role
@@ -72,7 +64,7 @@ class Game
     12.times do |turn|
       reset_pegs
       puts "\nTurn #{turn + 1} of 12"
-      guess = @player.prompt_for_guess
+      guess = prompt_for_guess
       check_guess(guess, @computer.secret_code)
       display_pegs(@black_pegs, @white_pegs)
       if won?(@black_pegs)
@@ -83,4 +75,3 @@ class Game
     display_code(@computer.secret_code)
   end
 end
-
