@@ -71,7 +71,7 @@ class Game
     setup_game
     12.times do |turn|
       reset_pegs
-      puts "Turn #{turn + 1} of 12"
+      puts "\nTurn #{turn + 1} of 12"
       guess = @player.prompt_for_guess
       check_guess(guess, @computer.secret_code)
       display_pegs(@black_pegs, @white_pegs)
