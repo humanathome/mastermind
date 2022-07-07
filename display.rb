@@ -18,10 +18,6 @@ module Display
     INTRO
   end
 
-  def display_guess(guess)
-    puts "Your guess was: #{guess}"
-  end
-
   def display_pegs(black_pegs, white_pegs)
     puts "You have #{black_pegs} black pegs and #{white_pegs} white pegs."
   end
