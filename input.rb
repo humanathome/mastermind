@@ -12,25 +12,21 @@ module Input
     role
   end
 
-  # ask player to make their code of 4 colors if they are the code-maker
   def prompt_for_color_code
-    puts 'Enter your super-secret color code separated by spaces:'
-    gets.chomp.split(' ')
-  end
-
-  # ask player to make their guess of 4 colors if they are the code-breaker
-  def prompt_for_guess
-    puts 'Enter your guess separated by spaces:'
-    guess = gets.chomp.downcase.split(' ')
-    until guess_valid?(guess) && !guess.empty?
-      puts 'Please enter 4 colors separated by spaces.'
-      guess = gets.chomp.downcase.split(' ')
+    puts 'Please enter a combination of 4 colors separated by one space (no repeating colors):'
+    color_code = gets.chomp.downcase.split(' ')
+    until colors_valid?(color_code) && color_code.length == 4 && colors_unique?(color_code)
+      color_code = prompt_for_color_code
     end
-    guess
+    color_code
   end
 
-  def guess_valid?(guess)
+  def colors_valid?(guess)
     guess.all? { |color| Game::PEG_COLORS.include?(color) }
+  end
+
+  def colors_unique?(colors)
+    colors.uniq.length == colors.length
   end
 
   def play_again?
