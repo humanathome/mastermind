@@ -18,16 +18,24 @@ module Display
     INTRO
   end
 
+  def display_thinking_message
+    puts 'Computer is thinking...'
+  end
+
+  def display_computer_guess(guess)
+    puts "Computer's guess: #{guess}"
+  end
+
   def display_pegs(black_pegs, white_pegs)
     puts "You have #{black_pegs} black pegs and #{white_pegs} white pegs."
   end
 
-  def display_winning_message
-    puts 'Game over! YOU WON!!!'
+  def display_winning_message(winner)
+    puts "Game over! #{winner} WON!!!"
   end
 
-  def display_losing_message
-    puts 'Game over! YOU LOST...'
+  def display_losing_message(loser)
+    puts "Game over! #{loser} LOST..."
   end
 
   def display_code(code)
