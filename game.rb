@@ -56,8 +56,8 @@ class Game
     end
   end
 
-  def won?(black_pegs)
-    black_pegs == 4
+  def won?
+    @black_pegs == 4
   end
 
   def lost?(turn)
@@ -70,7 +70,7 @@ class Game
       puts "\nTurn #{turn + 1} of 12"
       guess = prompt_for_color_code
       check_guess(guess, @secret_code)
-      if won?(@black_pegs)
+      if won?
         display_winning_message('You')
         break
       end
@@ -87,7 +87,7 @@ class Game
       computer_guess = @computer.generate_color_code
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
-      if won?(@black_pegs)
+      if won?
         display_winning_message('Computer')
         break
       end
