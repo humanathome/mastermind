@@ -7,7 +7,7 @@ require_relative 'input'
 
 # main game class
 class Game
-  attr_accessor :white_pegs, :black_pegs, :secret_code
+  attr_accessor :white_pegs, :black_pegs, :secret_code, :round
 
   include Display
   include Input
@@ -17,6 +17,7 @@ class Game
   def initialize
     @player = HumanPlayer.new
     @computer = ComputerPlayer.new
+    @round = 0
   end
 
   def set_role
@@ -64,6 +65,11 @@ class Game
     turn + 1 == 12
   end
 
+  def increment_and_display_round
+    @round += 1
+    puts "--- Round #{@round} ---"
+  end
+
   # call this method if the player is the code-breaker
   def human_code_breaker
     12.times do |turn|
@@ -75,7 +81,7 @@ class Game
         break
       end
       display_pegs(@black_pegs, @white_pegs)
-      display_losing_message('You') if lost?(turn)
+      display_losing_message('You') if lost?(@round)
     end
   end
 
