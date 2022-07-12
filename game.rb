@@ -61,8 +61,8 @@ class Game
     @black_pegs == 4
   end
 
-  def lost?(turn)
-    turn + 1 == 12
+  def lost?
+    @round == 12
   end
 
   def increment_and_display_round
@@ -78,7 +78,7 @@ class Game
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
-      display_losing_message('You') if lost?(@round)
+      display_losing_message('You') if lost?
     end
   end
 
