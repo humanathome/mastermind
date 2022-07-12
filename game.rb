@@ -74,7 +74,7 @@ class Game
   def human_code_breaker
     until @round == 12
       increment_and_display_round
-      check_guess(@player.player_turn, @secret_code)
+      check_guess(@player.make_guess, @secret_code)
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)

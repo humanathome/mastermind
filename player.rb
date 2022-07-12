@@ -10,7 +10,7 @@ class HumanPlayer
 
   def initialize; end
 
-  def player_turn
+  def make_guess
     prompt_for_color_code
   end
 end
