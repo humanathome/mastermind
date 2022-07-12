@@ -72,14 +72,11 @@ class Game
 
   # call this method if the player is the code-breaker
   def human_code_breaker
-    12.times do |turn|
-      puts "\nTurn #{turn + 1} of 12"
-      guess = prompt_for_color_code
-      check_guess(guess, @secret_code)
-      if won?
-        display_winning_message('You')
-        break
-      end
+    until @round == 12
+      increment_and_display_round
+      check_guess(@player.player_turn, @secret_code)
+      break if won?
+
       display_pegs(@black_pegs, @white_pegs)
       display_losing_message('You') if lost?(@round)
     end
