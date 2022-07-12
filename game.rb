@@ -15,7 +15,7 @@ class Game
   PEG_COLORS = %w[red green blue yellow orange purple].freeze
 
   def initialize
-    @player = HumanPlayer.new
+    @human = HumanPlayer.new
     @computer = ComputerPlayer.new
     @round = 0
   end
@@ -24,17 +24,17 @@ class Game
     role = prompt_for_role
     if role == 1
       puts "Your role: code-maker\n\n"
-      @player.role = :code_maker
+      @human.role = :code_maker
     else
       puts "Your role: code-breaker\n\n"
-      @player.role = :code_breaker
+      @human.role = :code_breaker
     end
   end
 
   def setup_game
     display_intro_and_rules
     set_role
-    @secret_code = if @player.role == :code_maker
+    @secret_code = if @human.role == :code_maker
                      prompt_for_color_code
                    else
                      @computer.generate_color_code
@@ -74,7 +74,7 @@ class Game
   def human_code_breaker
     until @round == 12
       increment_and_display_round
-      check_guess(@player.make_guess, @secret_code)
+      check_guess(@human.make_guess, @secret_code)
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
@@ -101,7 +101,7 @@ class Game
 
   def play
     setup_game
-    if @player.role == :code_breaker
+    if @human.role == :code_breaker
       human_code_breaker
     else
       computer_code_breaker
