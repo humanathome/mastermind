@@ -62,7 +62,7 @@ class Game
   end
 
   def lost?
-    @round == 12
+    @round == 12 && @black_pegs != 4
   end
 
   def increment_and_display_round
@@ -95,7 +95,7 @@ class Game
         break
       end
       display_pegs(@black_pegs, @white_pegs)
-      display_losing_message('Computer') if lost?(turn)
+      display_losing_message('Computer') if lost?
     end
   end
 
