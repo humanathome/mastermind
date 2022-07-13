@@ -16,17 +16,17 @@ class HumanPlayer
     role
   end
 
-  def ask_for_color_code
-    puts 'Please enter a combination of 4 colors separated by one space (no repeating colors):'
-    gets.chomp.downcase.split(' ')
-  end
-
   def enter_and_validate_color_code
     color_code = ask_for_color_code
     color_code_valid?(color_code)
   end
 
   private
+
+  def ask_for_color_code
+    puts 'Please enter a combination of 4 colors separated by one space (no repeating colors):'
+    gets.chomp.downcase.split(' ')
+  end
 
   # check if guess consists of valid colors, is 4 words long and contains unique colors
   def color_code_valid?(color_code)
