@@ -2,8 +2,6 @@
 
 # human player class
 class HumanPlayer
-  attr_accessor :role
-
   def initialize; end
 
   def ask_for_role

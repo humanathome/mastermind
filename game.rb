@@ -6,7 +6,7 @@ require_relative 'display'
 
 # main game class
 class Game
-  attr_accessor :white_pegs, :black_pegs, :secret_code, :round
+  attr_accessor :white_pegs, :black_pegs, :code_breaker, :secret_code, :round
 
   include Display
 
@@ -22,20 +22,20 @@ class Game
     role = @human.ask_for_role
     if role == 1
       puts "Your role: code-maker\n\n"
-      @human.role = :code_maker
+      @code_breaker = 'Computer'
     else
       puts "Your role: code-breaker\n\n"
-      @human.role = :code_breaker
+      @code_breaker = 'You'
     end
   end
 
   def setup_game
     display_intro_and_rules
     set_role
-    @secret_code = if @human.role == :code_maker
-                     @human.enter_and_validate_color_code
-                   else
+    @secret_code = if @code_breaker == 'You'
                      @computer.generate_color_code
+                   else
+                     @human.enter_and_validate_color_code
                    end
   end
 
@@ -73,10 +73,12 @@ class Game
     until @round == 12
       increment_and_display_round
       check_guess(@human.enter_and_validate_color_code, @secret_code)
-      break if won?
+      if won?
+        display_winning_message(@code_breaker)
+        break
+      end
 
       display_pegs(@black_pegs, @white_pegs)
-      display_losing_message('You') if lost?
     end
   end
 
@@ -89,11 +91,10 @@ class Game
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
       if won?
-        display_winning_message('Computer')
+        display_winning_message(@code_breaker)
         break
       end
       display_pegs(@black_pegs, @white_pegs)
-      display_losing_message('Computer') if lost?
     end
   end
 
@@ -105,11 +106,12 @@ class Game
 
   def play
     setup_game
-    if @human.role == :code_breaker
+    if @code_breaker == 'You'
       human_code_breaker
     else
       computer_code_breaker
     end
+    display_losing_message(@code_breaker) if lost?
     display_code(@secret_code)
     play_again? ? play : exit
   end
