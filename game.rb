@@ -97,6 +97,12 @@ class Game
     end
   end
 
+  def play_again?
+    puts 'Would you like to play again? (y/n)'
+    answer = gets.chomp
+    answer.downcase == 'y'
+  end
+
   def play
     setup_game
     if @human.role == :code_breaker
@@ -105,5 +111,6 @@ class Game
       computer_code_breaker
     end
     display_code(@secret_code)
+    play_again? ? play : exit
   end
 end
