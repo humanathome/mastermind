@@ -3,14 +3,12 @@
 require_relative 'player'
 require_relative 'computer'
 require_relative 'display'
-require_relative 'input'
 
 # main game class
 class Game
   attr_accessor :white_pegs, :black_pegs, :secret_code, :round
 
   include Display
-  include Input
 
   PEG_COLORS = %w[red green blue yellow orange purple].freeze
 
@@ -21,7 +19,7 @@ class Game
   end
 
   def set_role
-    role = prompt_for_role
+    role = @human.ask_for_role
     if role == 1
       puts "Your role: code-maker\n\n"
       @human.role = :code_maker
@@ -35,7 +33,7 @@ class Game
     display_intro_and_rules
     set_role
     @secret_code = if @human.role == :code_maker
-                     prompt_for_color_code
+                     @human.enter_and_validate_color_code
                    else
                      @computer.generate_color_code
                    end
@@ -74,7 +72,7 @@ class Game
   def human_code_breaker
     until @round == 12
       increment_and_display_round
-      check_guess(@human.make_guess, @secret_code)
+      check_guess(@human.enter_and_validate_color_code, @secret_code)
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
