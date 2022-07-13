@@ -73,10 +73,7 @@ class Game
     until @round == 12
       increment_and_display_round
       check_guess(@human.enter_and_validate_color_code, @secret_code)
-      if won?
-        display_winning_message(@code_breaker)
-        break
-      end
+      break if won?
 
       display_pegs(@black_pegs, @white_pegs)
     end
@@ -90,10 +87,8 @@ class Game
       computer_guess = @computer.generate_color_code
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
-      if won?
-        display_winning_message(@code_breaker)
-        break
-      end
+      break if won?
+
       display_pegs(@black_pegs, @white_pegs)
     end
   end
@@ -111,6 +106,7 @@ class Game
     else
       computer_code_breaker
     end
+    display_winning_message(@code_breaker) if won?
     display_losing_message(@code_breaker) if lost?
     display_code(@secret_code)
     play_again? ? play : exit
