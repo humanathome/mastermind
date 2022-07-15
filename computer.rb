@@ -14,6 +14,15 @@ class ComputerPlayer
     Game::PEG_COLORS.sample(4)
   end
 
+  def make_guess
+    if potential_color_code_full?
+      make_permutations
+      possible_combinations.sample
+    else
+      pick_next_color
+    end
+  end
+
   # save color in potential_color_code array
   def save_color
     @potential_color_code.push(@current_guess[0].to_s)

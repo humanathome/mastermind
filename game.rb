@@ -84,12 +84,7 @@ class Game
     until @round == 12
       increment_and_display_round
 
-      if @computer.potential_color_code_full?
-        @computer.make_permutations
-        computer_guess = @computer.possible_combinations.sample
-      else
-        computer_guess = @computer.pick_next_color
-      end
+      computer_guess = @computer.make_guess
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
 
