@@ -18,16 +18,13 @@ module Display
     INTRO
   end
 
-  def display_thinking_message
-    puts 'Computer is thinking...'
-  end
-
   def display_computer_guess(guess)
-    puts "Computer's guess: #{guess}"
+    puts 'Computer is thinking...'
+    puts "Computer's guess: #{guess.join(' - ')}"
   end
 
   def display_pegs(black_pegs, white_pegs)
-    puts "You have #{black_pegs} black pegs and #{white_pegs} white pegs."
+    puts "Round result: #{black_pegs} black pegs and #{white_pegs} white pegs."
   end
 
   def display_winning_message(winner)
