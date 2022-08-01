@@ -81,12 +81,14 @@ class Game
 
   # call this method if the player is the code-maker
   def computer_code_breaker
-    12.times do |turn|
-      puts "\nTurn #{turn + 1} of 12"
-      display_thinking_message
-      computer_guess = @computer.generate_color_code
+    until @round == 12
+      increment_and_display_round
+
+      computer_guess = @computer.make_guess
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
+
+      @computer.save_color if @white_pegs == 3 && !@computer.potential_color_code_full?
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
