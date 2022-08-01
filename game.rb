@@ -111,6 +111,6 @@ class Game
     display_winning_message(@code_breaker) if won?
     display_losing_message(@code_breaker) if lost?
     display_code(@secret_code)
-    play_again? ? play : exit
+    play_again? ? Game.new.play : exit
   end
 end
