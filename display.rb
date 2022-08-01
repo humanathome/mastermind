@@ -8,7 +8,7 @@ module Display
       Game rules:
       The game has 6 colors in total: red, green, blue, yellow, orange, purple.
       The Code-maker will generate a code which will be a combination of these colors, placed in 4 slots.
-      There are no duplicate colors nor blanks.
+      There are no duplicate colors nor blanks in the secret code, but duplicate colors in guesses are allowed.
 
       The Code-breaker gets 12 turns to guess the code.
       Each turn, the code-breaker will be asked to enter a combination of 4 colors.
