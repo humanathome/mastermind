@@ -14,7 +14,7 @@ class HumanPlayer
     role
   end
 
-  def enter_and_validate_color_code
+  def enter_and_validate_secret_code
     color_code = ask_for_color_code
     color_code_valid?(color_code)
   end
@@ -22,7 +22,7 @@ class HumanPlayer
   private
 
   def ask_for_color_code
-    puts 'Please enter a combination of 4 colors separated by one space. Duplicate colors are allowed.'
+    puts 'Please enter a combination of 4 colors separated by one space:'
     gets.chomp.downcase.split(' ')
   end
 

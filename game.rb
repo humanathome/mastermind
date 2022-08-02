@@ -15,6 +15,7 @@ class Game
   def initialize
     @human = HumanPlayer.new
     @computer = ComputerPlayer.new
+    @secret_code = []
     @round = 0
   end
 
@@ -32,11 +33,11 @@ class Game
   def setup_game
     display_intro_and_rules
     set_role
-    @secret_code = if @code_breaker == 'You'
-                     @computer.generate_color_code
-                   else
-                     @human.enter_and_validate_color_code
-                   end
+    if @code_breaker == 'You'
+      @secret_code = @computer.generate_color_code
+    else
+      @secret_code = @human.enter_and_validate_secret_code until @secret_code.uniq.length == 4
+    end
   end
 
   def reset_pegs
@@ -72,7 +73,7 @@ class Game
   def human_code_breaker
     until @round == 12
       increment_and_display_round
-      check_guess(@human.enter_and_validate_color_code, @secret_code)
+      check_guess(@human.enter_and_validate_secret_code, @secret_code)
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
