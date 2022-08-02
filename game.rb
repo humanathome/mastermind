@@ -89,7 +89,7 @@ class Game
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
 
-      @computer.save_color if @white_pegs == 3 && !@computer.potential_color_code_full?
+      @computer.act_on_guess_feedback(@white_pegs, @black_pegs)
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
