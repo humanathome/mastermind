@@ -88,11 +88,10 @@ class Game
       computer_guess = @computer.make_guess
       display_computer_guess(computer_guess)
       check_guess(computer_guess, @secret_code)
-
-      @computer.act_on_guess_feedback(@white_pegs, @black_pegs)
+      display_pegs(@black_pegs, @white_pegs)
       break if won?
 
-      display_pegs(@black_pegs, @white_pegs)
+      @computer.act_on_guess_feedback(@white_pegs, @black_pegs)
     end
   end
 
