@@ -16,6 +16,7 @@ class ComputerPlayer
   end
 
   def make_guess
+    check_if_2_colors_left
     if potential_color_code_full?
       make_permutations
       possible_combinations.sample
@@ -60,6 +61,13 @@ class ComputerPlayer
   def delete_colors_from_game_colors
     @game_colors.delete(@current_guess.first)
     @game_colors.delete(@current_guess.last)
+  end
+
+  def check_if_2_colors_left
+    return unless @game_colors.length == 2 && @potential_color_code.length == 2
+
+    @potential_color_code += @game_colors
+    @game_colors.clear
   end
 
   def potential_color_code_full?
