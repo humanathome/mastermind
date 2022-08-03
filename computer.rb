@@ -81,6 +81,8 @@ class ComputerPlayer
 
   # make all possible permutations from the colors included in the secret color code
   def make_permutations
+    return unless @possible_combinations.empty?
+
     mix_colors(@potential_color_code).each do |guess|
       @possible_combinations << guess
     end
