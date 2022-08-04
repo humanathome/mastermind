@@ -6,6 +6,7 @@ class ComputerPlayer
 
   def initialize
     @potential_color_code = []
+    @rejected_colors = []
     @next_color = 0
     @possible_combinations = []
     @game_colors = %w[red green blue yellow orange purple]
@@ -25,31 +26,37 @@ class ComputerPlayer
     end
   end
 
-  # save and/or delete colors based on the number of black and white pegs
+  # save, reject and delete colors based on the number of black and white pegs
   def act_on_guess_feedback(white_pegs, black_pegs)
     return if potential_color_code_full?
 
     case white_pegs + black_pegs
-    when 3
-      save_color
-      delete_colors_from_game_colors
     when 0
-      delete_colors_from_game_colors
-    when 4
-      save_color
-      @potential_color_code << @current_guess.last
+      reject_color(@current_guess.uniq)
       delete_colors_from_game_colors
     when 1
-      @potential_color_code << @current_guess.last
-      @game_colors.delete(@current_guess.last)
+      reject_color(@current_guess.first)
+      save_color(@current_guess.last)
+      delete_colors_from_game_colors
+    when 3
+      reject_color(@current_guess.last)
+      save_color(@current_guess.first)
+      delete_colors_from_game_colors
+    when 4
+      save_color(@current_guess.uniq)
+      delete_colors_from_game_colors
     end
   end
 
   private
 
   # save color in potential_color_code array
-  def save_color
-    @potential_color_code.push(@current_guess.first)
+  def save_color(color)
+    @potential_color_code.concat(color)
+  end
+
+  def reject_color(color)
+    @rejected_colors.concat(color)
   end
 
   def pick_next_color
