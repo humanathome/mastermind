@@ -52,11 +52,13 @@ class ComputerPlayer
 
   # save color in potential_color_code array
   def save_color(color)
-    @potential_color_code.concat(color)
+    @potential_color_code << color
+    @potential_color_code = @potential_color_code.flatten
   end
 
   def reject_color(color)
-    @rejected_colors.concat(color)
+    @rejected_colors << color
+    @rejected_colors = @rejected_colors.flatten
   end
 
   def pick_next_color
