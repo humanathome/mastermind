@@ -2,12 +2,13 @@
 
 # computer player class
 class ComputerPlayer
-  attr_accessor :current_guess, :potential_color_code, :next_color, :possible_combinations
+  attr_accessor :current_guess, :potential_color_code, :next_color, :possible_combinations, :rejected_colors
 
   def initialize
     @potential_color_code = []
     @rejected_colors = []
     @next_color = 0
+    @last_color = nil
     @possible_combinations = []
     @game_colors = %w[red green blue yellow orange purple]
   end
@@ -29,6 +30,8 @@ class ComputerPlayer
   # save, reject and delete colors based on the number of black and white pegs
   def act_on_guess_feedback(white_pegs, black_pegs)
     return if potential_color_code_full?
+
+    color_on_the_last_position?(black_pegs, white_pegs)
 
     case white_pegs + black_pegs
     when 0
@@ -65,6 +68,13 @@ class ComputerPlayer
     @current_guess = @game_colors[@next_color, 1] * 3
     @current_guess << @game_colors[@next_color + 1]
     @current_guess
+  end
+
+  def color_on_the_last_position?(black_pegs, white_pegs)
+    return unless black_pegs == 2 && white_pegs == 2 || black_pegs == 1 && white_pegs.zero?
+
+    @last_color = @current_guess.last
+    puts "LAST COLOR FOUND! Computer thinks the last color is: #{@last_color}."
   end
 
   def delete_colors_from_game_colors
