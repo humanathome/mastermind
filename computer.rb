@@ -19,9 +19,11 @@ class ComputerPlayer
 
   def make_guess
     check_if_2_colors_left
-    if potential_color_code_full?
+    if potential_color_code_full? && @last_color.nil?
+      search_for_last_color
+    elsif potential_color_code_full? && @last_color
       make_permutations
-      possible_combinations.sample
+      @possible_combinations.sample
     else
       pick_next_color
     end
@@ -29,26 +31,29 @@ class ComputerPlayer
 
   # save, reject and delete colors based on the number of black and white pegs
   def act_on_guess_feedback(white_pegs, black_pegs)
-    return if potential_color_code_full?
+    return if potential_color_code_full? && @last_color
 
-    color_on_the_last_position?(black_pegs, white_pegs)
+    check_for_last_color(black_pegs, white_pegs)
+
+    return if @game_colors.empty?
 
     case white_pegs + black_pegs
     when 0
       reject_color(@current_guess.uniq)
-      delete_colors_from_game_colors
     when 1
       reject_color(@current_guess.first)
       save_color(@current_guess.last)
-      delete_colors_from_game_colors
     when 3
       reject_color(@current_guess.last)
       save_color(@current_guess.first)
-      delete_colors_from_game_colors
     when 4
       save_color(@current_guess.uniq)
-      delete_colors_from_game_colors
     end
+    delete_colors_from_game_colors
+    return unless potential_color_code_full? && @game_colors.length == 2
+
+    @rejected_colors += @game_colors
+    @game_colors.clear
   end
 
   private
@@ -70,7 +75,18 @@ class ComputerPlayer
     @current_guess
   end
 
-  def color_on_the_last_position?(black_pegs, white_pegs)
+  # to find out the last color, make a guess that consists of 3x rejected color + 1 color included in the secret code
+  def search_for_last_color
+    puts 'Trying to figure out the last color, hold on...'
+    @current_guess = [@rejected_colors[0]] * 3
+    @current_guess << @potential_color_code[@next_color]
+    @next_color += 1
+    @current_guess
+  end
+
+  # last color in the secret code can be found in two ways: when there are two black pegs and two white pegs,
+  # or when there is a single black peg and zero white pegs
+  def check_for_last_color(black_pegs, white_pegs)
     return unless black_pegs == 2 && white_pegs == 2 || black_pegs == 1 && white_pegs.zero?
 
     @last_color = @current_guess.last
