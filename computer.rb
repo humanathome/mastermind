@@ -121,5 +121,11 @@ class ComputerPlayer
     mix_colors(@potential_color_code).each do |guess|
       @possible_combinations << guess
     end
+    filter_possible_combinations
+  end
+
+  # only keep permutations that include the last color
+  def filter_possible_combinations
+    @possible_combinations = @possible_combinations.select { |combo| combo.last == @last_color }
   end
 end
