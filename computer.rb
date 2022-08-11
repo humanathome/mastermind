@@ -23,7 +23,7 @@ class ComputerPlayer
       search_for_last_color
     elsif potential_color_code_full? && @last_color
       make_permutations
-      @possible_combinations.sample
+      @possible_combinations.shift
     else
       pick_next_color
     end
