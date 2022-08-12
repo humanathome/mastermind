@@ -22,7 +22,7 @@ class ComputerPlayer
     if potential_color_code_full? && @last_color.nil?
       search_for_last_color
     elsif potential_color_code_full? && @last_color
-      make_permutations
+      make_possible_combinations(@potential_color_code)
       @possible_combinations.shift
     else
       pick_next_color
@@ -109,22 +109,16 @@ class ComputerPlayer
     @potential_color_code.length == 4
   end
 
-  # unique permutations of 4 colors
-  def mix_colors(colors)
-    colors.permutation(4).to_a
-  end
-
-  # make all possible permutations from the colors included in the secret color code
-  def make_permutations
+  # make unique permutations of 4 colors included in the secret code
+  def make_possible_combinations(colors)
     return unless @possible_combinations.empty?
 
-    mix_colors(@potential_color_code).each do |guess|
-      @possible_combinations << guess
-    end
+    puts 'Generating permutations...'
+    @possible_combinations = colors.permutation(4).to_a
     filter_possible_combinations
   end
 
-  # only keep permutations that include the last color
+  # only keep permutations whose last color is the same as @last_color
   def filter_possible_combinations
     @possible_combinations = @possible_combinations.select { |combo| combo.last == @last_color }
   end
