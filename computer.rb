@@ -29,14 +29,25 @@ class ComputerPlayer
     end
   end
 
-  # save, reject and delete colors based on the number of black and white pegs
+  # main method for making decisions based on the number of pegs, the value of @last_color,
+  # and the length of @potential_color_code and @game_colors arrays
   def act_on_guess_feedback(white_pegs, black_pegs)
     return if potential_color_code_full? && @last_color
 
-    check_for_last_color(black_pegs, white_pegs)
-
+    check_for_last_color(white_pegs, black_pegs)
     return if @game_colors.empty?
 
+    act_on_pegs_amount(white_pegs, black_pegs)
+    return unless @game_colors.length == 2 && potential_color_code_full?
+
+    @rejected_colors += @game_colors
+    @game_colors.clear
+  end
+
+  private
+
+  # save, reject and delete colors based on the number of black and white pegs
+  def act_on_pegs_amount(white_pegs, black_pegs)
     case white_pegs + black_pegs
     when 0
       reject_color(@current_guess.uniq)
@@ -50,13 +61,7 @@ class ComputerPlayer
       save_color(@current_guess.uniq)
     end
     delete_colors_from_game_colors
-    return unless potential_color_code_full? && @game_colors.length == 2
-
-    @rejected_colors += @game_colors
-    @game_colors.clear
   end
-
-  private
 
   # save color in potential_color_code array
   def save_color(color)
@@ -86,7 +91,7 @@ class ComputerPlayer
 
   # last color in the secret code can be found in two ways: when there are two black pegs and two white pegs,
   # or when there is a single black peg and zero white pegs
-  def check_for_last_color(black_pegs, white_pegs)
+  def check_for_last_color(white_pegs, black_pegs)
     return unless black_pegs == 2 && white_pegs == 2 || black_pegs == 1 && white_pegs.zero?
 
     @last_color = @current_guess.last
