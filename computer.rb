@@ -25,7 +25,7 @@ class ComputerPlayer
       make_possible_combinations(@potential_color_code)
       @possible_combinations.shift
     else
-      pick_next_color
+      pick_next_two_colors
     end
   end
 
@@ -74,9 +74,9 @@ class ComputerPlayer
     @rejected_colors = @rejected_colors.flatten
   end
 
-  def pick_next_color
-    @current_guess = @game_colors[@next_color, 1] * 3
-    @current_guess << @game_colors[@next_color + 1]
+  def pick_next_two_colors
+    @current_guess = [@game_colors[0]] * 3
+    @current_guess << @game_colors[1]
     @current_guess
   end
 
