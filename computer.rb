@@ -2,9 +2,9 @@
 
 # computer player class
 class ComputerPlayer
-  attr_accessor :current_guess, :potential_color_code, :next_color, :possible_combinations, :rejected_colors
 
   def initialize
+    @current_guess = []
     @potential_color_code = []
     @rejected_colors = []
     @next_color = 0

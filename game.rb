@@ -6,13 +6,15 @@ require_relative 'display'
 
 # main game class
 class Game
-  attr_accessor :white_pegs, :black_pegs, :code_breaker, :secret_code, :round
 
   include Display
 
   PEG_COLORS = %w[red green blue yellow orange purple].freeze
 
   def initialize
+    @white_pegs = 0
+    @black_pegs = 0
+    @code_breaker = ''
     @human = HumanPlayer.new
     @computer = ComputerPlayer.new
     @secret_code = []
