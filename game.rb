@@ -66,7 +66,7 @@ class Game
 
   def increment_and_display_round
     @round += 1
-    puts "--- Round #{@round} ---"
+    puts "\n--- Round #{@round} ---"
   end
 
   # call this method if the player is the code-breaker
