@@ -2,7 +2,6 @@
 
 # computer player class
 class ComputerPlayer
-
   def initialize
     @current_guess = []
     @potential_color_code = []
@@ -89,13 +88,15 @@ class ComputerPlayer
     @current_guess
   end
 
-  # last color in the secret code can be found in two ways: when there are two black pegs and two white pegs,
-  # or when there is a single black peg and zero white pegs
+  # last color in the secret code can be found in three ways based on the number of white and black pegs
   def check_for_last_color(white_pegs, black_pegs)
-    return unless black_pegs == 2 && white_pegs == 2 || black_pegs == 1 && white_pegs.zero?
-
-    @last_color = @current_guess.last
-    puts "LAST COLOR FOUND! Computer thinks the last color is: #{@last_color}."
+    if black_pegs == 2 && white_pegs == 2 || black_pegs == 1 && white_pegs.zero?
+      @last_color = @current_guess.last
+      puts "LAST COLOR FOUND! Computer thinks the last color is: #{@last_color}."
+    elsif black_pegs.zero? && white_pegs == 3
+      @last_color = @current_guess.first
+      puts "LAST COLOR FOUND! Computer thinks the last color is: #{@last_color}."
+    end
   end
 
   def delete_colors_from_game_colors
