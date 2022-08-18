@@ -6,7 +6,6 @@ require_relative 'display'
 
 # main game class
 class Game
-
   include Display
 
   PEG_COLORS = %w[red green blue yellow orange purple].freeze
@@ -20,6 +19,21 @@ class Game
     @secret_code = []
     @round = 0
   end
+
+  def play
+    setup_game
+    if @code_breaker == 'You'
+      human_code_breaker
+    else
+      computer_code_breaker
+    end
+    display_winning_message(@code_breaker) if won?
+    display_losing_message(@code_breaker) if lost?
+    display_code(@secret_code)
+    play_again? ? Game.new.play : exit
+  end
+
+  private
 
   def set_role
     role = @human.ask_for_role
@@ -101,18 +115,5 @@ class Game
     puts 'Would you like to play again? (y/n)'
     answer = gets.chomp
     answer.downcase == 'y'
-  end
-
-  def play
-    setup_game
-    if @code_breaker == 'You'
-      human_code_breaker
-    else
-      computer_code_breaker
-    end
-    display_winning_message(@code_breaker) if won?
-    display_losing_message(@code_breaker) if lost?
-    display_code(@secret_code)
-    play_again? ? Game.new.play : exit
   end
 end
