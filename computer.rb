@@ -119,13 +119,8 @@ class ComputerPlayer
   def make_possible_combinations(colors)
     return unless @possible_combinations.empty?
 
+    colors_without_last_color = colors - [@last_color]
     puts 'Generating permutations...'
-    @possible_combinations = colors.permutation(4).to_a
-    filter_possible_combinations
-  end
-
-  # only keep permutations whose last color is the same as @last_color
-  def filter_possible_combinations
-    @possible_combinations = @possible_combinations.select { |combo| combo.last == @last_color }
+    @possible_combinations = colors_without_last_color.permutation(3).to_a.each { |combo| combo << @last_color }
   end
 end
