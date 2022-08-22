@@ -46,10 +46,8 @@ class ComputerPlayer
     end
   end
 
-  # save color in potential_color_code array
-  def save_color(color)
-    @potential_color_code << color
-    @potential_color_code = @potential_color_code.flatten
+  def save_color(colors)
+    @potential_color_code.push(*colors)
   end
 
   def pick_next_two_colors
