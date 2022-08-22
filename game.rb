@@ -61,12 +61,12 @@ class Game
     @black_pegs = 0
   end
 
-  def check_guess(guess, code)
+  def check_guess(guess)
     reset_pegs
     guess.each_with_index do |peg, index|
-      if code[index] == peg
+      if @secret_code[index] == peg
         @black_pegs += 1
-      elsif code.include?(peg)
+      elsif @secret_code.include?(peg)
         @white_pegs += 1
       end
     end
@@ -89,7 +89,7 @@ class Game
   def human_code_breaker
     until @round == 12
       increment_and_display_round
-      check_guess(@human.enter_and_validate_secret_code, @secret_code)
+      check_guess(@human.enter_and_validate_secret_code)
       break if won?
 
       display_pegs(@black_pegs, @white_pegs)
@@ -103,7 +103,7 @@ class Game
 
       computer_guess = @computer.make_guess
       display_computer_guess(computer_guess)
-      check_guess(computer_guess, @secret_code)
+      check_guess(computer_guess)
       display_pegs(@black_pegs, @white_pegs)
       break if won?
 
