@@ -6,7 +6,7 @@ class ComputerPlayer
     @current_guess = []
     @potential_color_code = []
     @last_color = nil
-    @possible_combinations = []
+    @possible_permutations = []
     @game_colors = %w[red green blue yellow orange purple]
   end
 
@@ -16,8 +16,8 @@ class ComputerPlayer
 
   def make_guess
     if potential_color_code_full? && @last_color
-      make_possible_combinations(@potential_color_code)
-      @possible_combinations.shift
+      make_permutations(@potential_color_code)
+      @possible_permutations.shift
     else
       pick_next_two_colors
     end
@@ -69,11 +69,11 @@ class ComputerPlayer
   end
 
   # make unique permutations of 4 colors included in the secret code
-  def make_possible_combinations(colors)
-    return unless @possible_combinations.empty?
+  def make_permutations(colors)
+    return unless @possible_permutations.empty?
 
     colors_without_last_color = colors - [@last_color]
     puts 'Generating permutations...'
-    @possible_combinations = colors_without_last_color.permutation(3).to_a.each { |combo| combo << @last_color }
+    @possible_permutations = colors_without_last_color.permutation(3).to_a.each { |combo| combo << @last_color }
   end
 end
