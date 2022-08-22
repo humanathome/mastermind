@@ -44,7 +44,6 @@ class ComputerPlayer
     when 4
       save_color(@current_guess.uniq)
     end
-    delete_colors_from_game_colors
   end
 
   # save color in potential_color_code array
@@ -54,9 +53,7 @@ class ComputerPlayer
   end
 
   def pick_next_two_colors
-    @current_guess = [@game_colors[0]] * 3
-    @current_guess << @game_colors[1]
-    @current_guess
+    @current_guess = [@game_colors.shift] * 3 + [@game_colors.shift]
   end
 
   # last color in the secret code can be found in four ways based on the number of white and black pegs
@@ -67,11 +64,6 @@ class ComputerPlayer
       @last_color = @current_guess.last
     end
     puts "LAST COLOR FOUND! Computer thinks the last color is #{@last_color}." if @last_color
-  end
-
-  def delete_colors_from_game_colors
-    @game_colors.delete(@current_guess.first)
-    @game_colors.delete(@current_guess.last)
   end
 
   def potential_color_code_full?
