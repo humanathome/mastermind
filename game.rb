@@ -49,6 +49,10 @@ class Game
   def setup_game
     display_intro_and_rules
     set_role
+    make_secret_code
+  end
+
+  def make_secret_code
     if @code_breaker == 'You'
       @secret_code = @computer.generate_color_code
     else
