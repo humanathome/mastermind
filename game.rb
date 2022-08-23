@@ -63,10 +63,10 @@ class Game
 
   def check_guess(guess)
     reset_pegs
-    guess.each_with_index do |peg, index|
-      if @secret_code[index] == peg
+    guess.each_with_index do |color, index|
+      if @secret_code[index] == color
         @black_pegs += 1
-      elsif @secret_code.include?(peg)
+      elsif @secret_code.include?(color)
         @white_pegs += 1
       end
     end
