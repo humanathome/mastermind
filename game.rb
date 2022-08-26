@@ -22,11 +22,7 @@ class Game
 
   def play
     setup_game
-    if @code_breaker == 'You'
-      human_code_breaker
-    else
-      computer_code_breaker
-    end
+    @code_breaker == 'You' ? human_code_breaker : computer_code_breaker
     display_final_result
     display_code(@secret_code)
     play_again? ? Game.new.play : exit
