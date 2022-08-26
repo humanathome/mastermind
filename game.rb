@@ -22,7 +22,7 @@ class Game
 
   def play
     setup_game
-    @code_breaker == 'You' ? human_code_breaker : computer_code_breaker
+    @code_breaker == 'Human' ? human_code_breaker : computer_code_breaker
     display_final_result
     display_code(@secret_code)
     play_again? ? Game.new.play : exit
@@ -43,12 +43,12 @@ class Game
       @code_breaker = 'Computer'
     else
       puts "Your role: code-breaker\n\n"
-      @code_breaker = 'You'
+      @code_breaker = 'Human'
     end
   end
 
   def make_secret_code
-    if @code_breaker == 'You'
+    if @code_breaker == 'Human'
       @secret_code = @computer.generate_color_code
     else
       @secret_code = @human.enter_and_validate_secret_code until @secret_code.uniq.length == 4
