@@ -34,6 +34,12 @@ class Game
 
   private
 
+  def setup_game
+    display_intro_and_rules
+    set_role
+    make_secret_code
+  end
+
   def set_role
     role = @human.ask_for_role
     if role == 1
@@ -45,18 +51,41 @@ class Game
     end
   end
 
-  def setup_game
-    display_intro_and_rules
-    set_role
-    make_secret_code
-  end
-
   def make_secret_code
     if @code_breaker == 'You'
       @secret_code = @computer.generate_color_code
     else
       @secret_code = @human.enter_and_validate_secret_code until @secret_code.uniq.length == 4
     end
+  end
+
+  def human_code_breaker
+    until @round == 12
+      increment_and_display_round
+      check_guess(@human.enter_and_validate_secret_code)
+      break if won?
+
+      display_pegs(@black_pegs, @white_pegs)
+    end
+  end
+
+  def computer_code_breaker
+    until @round == 12
+      increment_and_display_round
+
+      computer_guess = @computer.make_guess
+      display_computer_guess(computer_guess)
+      check_guess(computer_guess)
+      display_pegs(@black_pegs, @white_pegs)
+      break if won?
+
+      @computer.act_on_guess_feedback(@white_pegs, @black_pegs)
+    end
+  end
+
+  def increment_and_display_round
+    @round += 1
+    puts "\n--- Round #{@round} ---"
   end
 
   def reset_pegs
@@ -86,37 +115,6 @@ class Game
   def display_final_result
     display_winning_message(@code_breaker) if won?
     display_losing_message(@code_breaker) if lost?
-  end
-
-  def increment_and_display_round
-    @round += 1
-    puts "\n--- Round #{@round} ---"
-  end
-
-  # call this method if the player is the code-breaker
-  def human_code_breaker
-    until @round == 12
-      increment_and_display_round
-      check_guess(@human.enter_and_validate_secret_code)
-      break if won?
-
-      display_pegs(@black_pegs, @white_pegs)
-    end
-  end
-
-  # call this method if the player is the code-maker
-  def computer_code_breaker
-    until @round == 12
-      increment_and_display_round
-
-      computer_guess = @computer.make_guess
-      display_computer_guess(computer_guess)
-      check_guess(computer_guess)
-      display_pegs(@black_pegs, @white_pegs)
-      break if won?
-
-      @computer.act_on_guess_feedback(@white_pegs, @black_pegs)
-    end
   end
 
   def play_again?
