@@ -17,7 +17,7 @@ class ComputerPlayer
   def make_guess
     if potential_color_code_full? && @last_color
       make_permutations(@potential_color_code)
-      @possible_permutations.shift
+      @possible_permutations.pop
     else
       pick_next_two_colors
     end
