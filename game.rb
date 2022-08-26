@@ -27,8 +27,7 @@ class Game
     else
       computer_code_breaker
     end
-    display_winning_message(@code_breaker) if won?
-    display_losing_message(@code_breaker) if lost?
+    display_final_result
     display_code(@secret_code)
     play_again? ? Game.new.play : exit
   end
@@ -82,6 +81,11 @@ class Game
 
   def lost?
     @round == 12 && @black_pegs != 4
+  end
+
+  def display_final_result
+    display_winning_message(@code_breaker) if won?
+    display_losing_message(@code_breaker) if lost?
   end
 
   def increment_and_display_round
