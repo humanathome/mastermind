@@ -4,6 +4,7 @@
 module Display
   def display_intro_and_rules
     puts <<~INTRO
+
       Welcome to Mastermind!
       Game rules:
       The game has 6 colors in total: red, green, blue, yellow, orange, purple.
@@ -28,11 +29,11 @@ module Display
   end
 
   def display_winning_message(winner)
-    puts "Game over! #{winner} WON!!!"
+    puts "\nGame over! #{winner} WON!!!"
   end
 
   def display_losing_message(loser)
-    puts "Game over! #{loser} LOST..."
+    puts "\nGame over! #{loser} LOST..."
   end
 
   def display_code(code)
