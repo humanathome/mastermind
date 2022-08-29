@@ -61,7 +61,7 @@ class Game
       check_guess(@human.enter_and_validate_secret_code)
       break if won?
 
-      display_pegs(@black_pegs, @white_pegs)
+      display_guess_feedback(@black_pegs, @white_pegs)
     end
   end
 
@@ -72,7 +72,7 @@ class Game
       computer_guess = @computer.make_guess
       display_computer_guess(computer_guess)
       check_guess(computer_guess)
-      display_pegs(@black_pegs, @white_pegs)
+      display_guess_feedback(@black_pegs, @white_pegs)
       break if won?
 
       @computer.act_on_guess_feedback(@white_pegs, @black_pegs)

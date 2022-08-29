@@ -24,7 +24,7 @@ module Display
     puts "Computer's guess: #{guess.join(' - ')}"
   end
 
-  def display_pegs(black_pegs, white_pegs)
+  def display_guess_feedback(black_pegs, white_pegs)
     puts "Round result: #{black_pegs} black pegs and #{white_pegs} white pegs."
   end
 
