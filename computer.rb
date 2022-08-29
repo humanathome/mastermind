@@ -15,7 +15,7 @@ class ComputerPlayer
   end
 
   def make_guess
-    if potential_color_code_full? && @last_color
+    if potential_color_code_full?
       make_permutations(@potential_color_code)
       @possible_permutations.pop
     else
@@ -23,12 +23,14 @@ class ComputerPlayer
     end
   end
 
-  # main method for making decisions based on the number of pegs, the value of @last_color,
-  # and the length of @potential_color_code array
+  # find out which colors are in the secret code and which one of them is the last color
   def act_on_guess_feedback(white_pegs, black_pegs)
-    return if potential_color_code_full? && @last_color
+    return if potential_color_code_full?
 
-    check_for_last_color(white_pegs, black_pegs)
+    unless @last_color
+      check_for_last_color(white_pegs, black_pegs)
+      puts "LAST COLOR FOUND! Computer thinks the last color is #{@last_color}." if @last_color
+    end
     act_on_pegs_amount(white_pegs, black_pegs)
   end
 
@@ -61,7 +63,6 @@ class ComputerPlayer
     elsif black_pegs == 1 && white_pegs.zero? || black_pegs == 2 && white_pegs == 2
       @last_color = @current_guess.last
     end
-    puts "LAST COLOR FOUND! Computer thinks the last color is #{@last_color}." if @last_color
   end
 
   def potential_color_code_full?
