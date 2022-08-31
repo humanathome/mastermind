@@ -26,13 +26,11 @@ class HumanPlayer
     gets.chomp.downcase.split(' ')
   end
 
-  # check if guess is 4 words long and consists of valid colors
   def color_code_valid?(color_code)
     color_code = ask_for_color_code until valid_colors?(color_code) && color_code.length == 4
     color_code
   end
 
-  # check if all colors are found in the list of allowed colors
   def valid_colors?(guess)
     guess.all? { |color| Game::PEG_COLORS.include?(color) }
   end

@@ -36,7 +36,7 @@ class ComputerPlayer
 
   private
 
-  # save colors based on the number of black and white pegs
+  # find out which colors appear in the secret code and save them to the @potential_color_code array
   def act_on_pegs_amount(white_pegs, black_pegs)
     case white_pegs + black_pegs
     when 1
@@ -56,7 +56,6 @@ class ComputerPlayer
     @current_guess = [@game_colors.shift] * 3 + [@game_colors.shift]
   end
 
-  # last color in the secret code can be found in four ways based on the number of white and black pegs
   def check_for_last_color(white_pegs, black_pegs)
     if black_pegs.zero? && [3, 4].include?(white_pegs)
       @last_color = @current_guess.first
@@ -69,7 +68,6 @@ class ComputerPlayer
     @potential_color_code.length == 4
   end
 
-  # make unique permutations of 4 colors included in the secret code
   def make_permutations(colors)
     return unless @possible_permutations.empty?
 
