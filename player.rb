@@ -5,10 +5,10 @@ class HumanPlayer
   def initialize; end
 
   def ask_for_role
-    puts 'Would you like to play as a: 1. Code-maker or 2. Code-breaker? Enter 1 or 2:'
+    puts Rainbow('Would you like to play as a: 1. Code-maker or 2. Code-breaker? Enter 1 or 2:').yellow
     role = gets.chomp.to_i
     until [1, 2].include?(role)
-      puts 'Please enter 1 or 2.'
+      puts Rainbow('Please enter 1 or 2.').red
       role = gets.chomp.to_i
     end
     role
@@ -22,7 +22,7 @@ class HumanPlayer
   private
 
   def ask_for_color_code
-    puts 'Please enter a combination of 4 colors separated by one space:'
+    puts Rainbow('Please enter a combination of 4 colors separated by one space:').yellow
     gets.chomp.downcase.split(' ')
   end
 

@@ -3,9 +3,9 @@
 # contains methods for displaying textual info
 module Display
   def display_intro_and_rules
+    puts Rainbow("\nWelcome to Mastermind!").green
     puts <<~INTRO
 
-      Welcome to Mastermind!
       Game rules:
       The game has 6 colors in total: red, green, blue, yellow, orange, purple.
       The Code-maker will generate a code which will be a combination of these colors, placed in 4 slots.
@@ -25,18 +25,18 @@ module Display
   end
 
   def display_guess_feedback(black_pegs, white_pegs)
-    puts "Round result: #{black_pegs} black pegs and #{white_pegs} white pegs."
+    puts Rainbow("Round result: #{black_pegs} black pegs and #{white_pegs} white pegs.").bright
   end
 
   def display_winning_message(winner)
-    puts "\nGame over! #{winner} WON!!!"
+    puts Rainbow("\nGame over! #{winner} WON!!!").green
   end
 
   def display_losing_message(loser)
-    puts "\nGame over! #{loser} LOST..."
+    puts Rainbow("\nGame over! #{loser} LOST...").red
   end
 
   def display_code(code)
-    puts "The code was: #{code.join(' - ')}"
+    puts "The code was: #{code.join(' - ').upcase}"
   end
 end

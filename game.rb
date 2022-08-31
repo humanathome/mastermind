@@ -3,6 +3,7 @@
 require_relative 'player'
 require_relative 'computer'
 require_relative 'display'
+require 'rainbow'
 
 # main game class
 class Game
@@ -39,10 +40,10 @@ class Game
   def set_role
     role = @human.ask_for_role
     if role == 1
-      puts "Your role: code-maker\n\n"
+      puts "Your role: #{Rainbow("code-maker\n").green}"
       @code_breaker = 'Computer'
     else
-      puts "Your role: code-breaker\n\n"
+      puts "Your role: #{Rainbow("code-breaker\n").green}"
       @code_breaker = 'Human'
     end
   end
@@ -81,7 +82,7 @@ class Game
 
   def increment_and_display_round
     @round += 1
-    puts "\n--- Round #{@round} ---"
+    puts Rainbow("\n--- Round #{@round} ---").green
   end
 
   def reset_pegs
@@ -114,7 +115,7 @@ class Game
   end
 
   def play_again?
-    puts 'Would you like to play again? (y/n)'
+    puts Rainbow("\nWould you like to play again? (y/n)").yellow
     answer = gets.chomp
     answer.downcase == 'y'
   end

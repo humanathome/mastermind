@@ -29,7 +29,7 @@ class ComputerPlayer
 
     unless @last_color
       check_for_last_color(white_pegs, black_pegs)
-      puts "LAST COLOR FOUND! Computer thinks the last color is #{@last_color}." if @last_color
+      puts Rainbow('LAST COLOR FOUND!').cyan + " Computer thinks the last color is #{@last_color}." if @last_color
     end
     act_on_pegs_amount(white_pegs, black_pegs)
   end
@@ -74,7 +74,7 @@ class ComputerPlayer
     return unless @possible_permutations.empty?
 
     colors_without_last_color = colors - [@last_color]
-    puts 'Generating permutations...'
+    puts Rainbow('Found all the colors, generating permutations now...').cyan
     @possible_permutations = colors_without_last_color.permutation(3).to_a.each { |combo| combo << @last_color }
   end
 end
