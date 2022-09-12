@@ -60,9 +60,8 @@ class Game
     until @round == 12
       increment_and_display_round
       check_guess(@human.enter_and_validate_secret_code)
-      break if won?
-
       display_guess_feedback(@black_pegs, @white_pegs)
+      break if won?
     end
   end
 
