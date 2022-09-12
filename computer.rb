@@ -29,7 +29,9 @@ class ComputerPlayer
 
     unless @last_color
       check_for_last_color(white_pegs, black_pegs)
-      puts Rainbow('LAST COLOR FOUND!').cyan.bright + " Computer thinks the last color is #{@last_color}." if @last_color
+      if @last_color
+        puts Rainbow('LAST COLOR FOUND!').cyan.bright + " Computer thinks the last color is #{@last_color}."
+      end
     end
     act_on_pegs_amount(white_pegs, black_pegs)
   end
