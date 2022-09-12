@@ -40,10 +40,10 @@ class Game
   def set_role
     role = @human.ask_for_role
     if role == 1
-      puts "Your role: #{Rainbow("code-maker\n").green}"
+      puts "Your role: #{Rainbow("code-maker\n").green.bright}"
       @code_breaker = 'Computer'
     else
-      puts "Your role: #{Rainbow("code-breaker\n").green}"
+      puts "Your role: #{Rainbow("code-breaker\n").green.bright}"
       @code_breaker = 'Human'
     end
   end
@@ -82,7 +82,7 @@ class Game
 
   def increment_and_display_round
     @round += 1
-    puts Rainbow("\n--- Round #{@round} ---").green
+    puts Rainbow("\n--- Round #{@round} ---").green.bright
   end
 
   def reset_pegs
@@ -115,7 +115,7 @@ class Game
   end
 
   def play_again?
-    puts Rainbow("\nWould you like to play again? (y/n)").yellow
+    puts Rainbow("\nWould you like to play again? (y/n)").yellow.bright
     answer = gets.chomp
     answer.downcase == 'y'
   end

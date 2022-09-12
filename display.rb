@@ -3,7 +3,7 @@
 # contains methods for displaying textual info
 module Display
   def display_intro_and_rules
-    puts Rainbow("\nWelcome to Mastermind!").green
+    puts Rainbow("\nWelcome to Mastermind!").green.bright
     puts <<~INTRO
 
       Game rules:
@@ -29,7 +29,7 @@ module Display
   end
 
   def display_winning_message(winner)
-    puts Rainbow("\nGame over! #{winner} WON!!!").green
+    puts Rainbow("\nGame over! #{winner} WON!!!").green.bright
   end
 
   def display_losing_message(loser)
@@ -37,6 +37,6 @@ module Display
   end
 
   def display_code(code)
-    puts "The code was: #{code.join(' - ').upcase}"
+    puts Rainbow("The code was: #{code.join(' - ').upcase}").bright
   end
 end
